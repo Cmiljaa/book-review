@@ -22,7 +22,7 @@ class BookController extends Controller
             'popular_last_6months' => $books->PopularLast6Months(),
             'highest_rated_last_month' => $books->HighestRatedLastMonth(),
             'highest_rated_last_6months' => $books->HighestRatedLast6Months(),
-            default => latest()
+            default => $books -> latest()
         };
 
         $books = $books->get();

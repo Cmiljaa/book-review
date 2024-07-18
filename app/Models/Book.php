@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 
 class Book extends Model
 {
@@ -50,22 +50,22 @@ class Book extends Model
     }
 
     public function scopePopularLastMonth(Builder $query): Builder|QueryBuilder{
-        return $query()->Popular(now()->subMonth(), now())
+        return $query->Popular(now()->subMonth(), now())
         ->HighestRated(now()->subMonth(), now())->minReviews(2);
     }
 
     public function scopePopularLast6Months(Builder $query): Builder|QueryBuilder{
-        return $query()->Popular(now()->subMonths(6), now())
+        return $query->Popular(now()->subMonths(6), now())
         ->HighestRated(now()->subMonths(6), now())->minReviews(5);
     }
 
     public function scopeHighestRatedLastMonth(Builder $query): Builder|QueryBuilder{
-        return $query()->HighestRated(now()->subMonth(), now())->Popular(now()->subMonth(), now())
+        return $query->HighestRated(now()->subMonth(), now())->Popular(now()->subMonth(), now())
         ->minReviews(2);
     }
 
     public function scopeHighestRatedLast6Months(Builder $query): Builder|QueryBuilder{
-        return $query()->HighestRated(now()->subMonths(6), now())->Popular(now()->subMonths(6), now())
+        return $query->HighestRated(now()->subMonths(6), now())->Popular(now()->subMonths(6), now())
         ->minReviews(5);
     }
 }
