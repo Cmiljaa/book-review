@@ -1,19 +1,43 @@
-<li class="mb-4">
-    <div class="book-item">
-      <div
-        class="flex flex-wrap items-center justify-between">
-        <div class="w-full flex-grow sm:w-auto">
-          <a href="#" class="book-title">{{$book->title}}</a>
-          <span class="book-author">by {{$book->author}}</span>
+@extends('layouts.app')
+
+@section('content')
+  <div class="mb-4">
+    <h1 class="mb-2 text-2xl">{{ $book->title }}</h1>
+
+    <div class="book-info">
+      <div class="book-author mb-4 text-lg font-semibold">by {{ $book->author }}</div>
+      <div class="book-rating flex items-center">
+        <div class="mr-2 text-sm font-medium text-slate-700">
+          {{ number_format($book->reviews_avg_rating, 1) }}
         </div>
-        <div>
-          <div class="book-rating">
-            3.5
-          </div>
-          <div class="book-review-count">
-            out of 5 reviews
-          </div>
-        </div>
+        <span class="book-review-count text-sm text-gray-500">
+          {{ $book->reviews_count }} {{ Str::plural('review', $book->reviews_count) }}
+        </span>
       </div>
     </div>
-  </li>
+  </div>
+
+  <div>
+    <h2 class="mb-4 text-xl font-semibold">Reviews</h2>
+    <ul>
+      @forelse ($book->reviews as $review)
+        <li class="book-item mb-4">
+          <div>
+            <div class="mb-2 flex items-center justify-between">
+              <div class="font-semibold">{{ $review->rating }}</div>
+              <div class="book-review-count">
+                {{ $review->created_at->format('M j, Y') }}</div>
+            </div>
+            <p class="text-gray-700">{{ $review->review }}</p>
+          </div>
+        </li>
+      @empty
+        <li class="mb-4">
+          <div class="empty-book-item">
+            <p class="empty-text text-lg font-semibold">No reviews yet</p>
+          </div>
+        </li>
+      @endforelse
+    </ul>
+  </div>
+@endsection

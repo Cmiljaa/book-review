@@ -31,7 +31,7 @@
             <div
             class="flex flex-wrap items-center justify-between">
             <div class="w-full flex-grow sm:w-auto">
-                <a href="{{route('books.show', $book)}}" class="book-title">{{$book->title}}</a>
+                <a href="{{route('books.show', ['book' => $book])}}" class="book-title">{{$book->title}}</a>
                 <span class="book-author">by {{$book->author}}</span>
             </div>
             <div>
