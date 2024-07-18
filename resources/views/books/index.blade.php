@@ -3,11 +3,28 @@
 
 <form action="{{route('books.index')}}" method="GET" class="mb-4 flex items-center space-x-2">
     <input type="text" class="input h-10" name="title" placeholder="Search by title" value="{{request('title')}}">
+    <input type="hidden" name="filter" value="{{request('filter')}}">
     <button type="submit" class="btn">Search</button>
     <a href="{{route('books.index')}}" class="btn h-10">Clear</a>
 </form>
 
-    <ul>
+<div class="filter-container mb-4 flex">
+    @php
+        $filters = [
+            '' => 'Latest',
+            'popular_last_month' => 'Popular Last Month',
+            'popular_last_6months' => 'Popular Last 6 Months',
+            'highest_rated_last_month' => 'Highest Rated Last Month',
+            'highest_rated_last_6months' => 'Highest rated last 6 months'
+        ]
+    @endphp
+
+    @foreach ($filters as $filter => $label)
+        <a href="{{route('books.index', [...request()->query() ,'filter' => $filter])}}" class="{{request('filter') === $filter || (request('filter') === null && $filter==='')  ? 'filter-item-active' : 'filter-item'}}">{{$label}}</a>
+    @endforeach
+</div>
+
+<ul>
     @forelse ($books as $book)
         <li class="mb-4">
         <div class="book-item">
@@ -36,6 +53,6 @@
         </div>
         </li>
     @endforelse
-    </ul>
+</ul>
 
 @endsection
