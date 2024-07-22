@@ -20,7 +20,7 @@
     @endphp
 
     @foreach ($filters as $filter => $label)
-        <a href="{{route('books.index', [...request()->query() ,'filter' => $filter])}}" class="{{request('filter') === $filter || (request('filter') === null && $filter==='')  ? 'filter-item-active' : 'filter-item'}}">{{$label}}</a>
+        <a href="{{route('books.index', [...request()->query() ,'filter' => $filter, 'page' => 1])}}" class="{{request('filter') === $filter || (request('filter') === null && $filter==='')  ? 'filter-item-active' : 'filter-item'}}">{{$label}}</a>
     @endforeach
 </div>
 
@@ -54,5 +54,7 @@
         </li>
     @endforelse
 </ul>
-
+    @if($books->count())
+        {{$books->links()}}
+    @endif
 @endsection
