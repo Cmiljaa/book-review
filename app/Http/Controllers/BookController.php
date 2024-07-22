@@ -27,7 +27,7 @@ class BookController extends Controller
             default => $books -> latest()->withAvgRating()->withReviewsCount()
         };
 
-        $cacheKey = 'books:' . $filter . 'CXBADSF:' . $title;
+        $cacheKey = 'books:' . $filter . ':' . $title;
         $books = Cache::remember($cacheKey, 3600, fn() => $books->get());
 
         return view('books.index', ['books' => $books]);
