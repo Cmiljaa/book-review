@@ -6,6 +6,11 @@
 
     <div class="book-info">
       <div class="book-author mb-4 text-lg font-semibold">by {{ $book->author }}</div>
+      @if (session()->has('success'))
+        <div class="bg-green-200 px-6 py-4 mx-2 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg">
+          <span class="text-green-800">{{session('success')}}</span>
+        </div>
+      @endif
       <div class="book-rating flex items-center">
         <div class="mr-2 text-sm font-medium text-slate-700">
           <x-star-rating :rating="number_format($book->reviews_avg_rating, 1)" />
