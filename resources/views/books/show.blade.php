@@ -14,6 +14,9 @@
           {{ $book->reviews_count }} {{ Str::plural('review', $book->reviews_count) }}
         </span>
       </div>
+      <div>
+        <a href="{{route('books.reviews.create', ['book' => $book])}}">Add review!</a>
+      </div>
     </div>
   </div>
 
